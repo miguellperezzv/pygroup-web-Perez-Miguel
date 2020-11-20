@@ -1,5 +1,5 @@
 from app.db import db, ma
-
+from datetime import datetime
 
 
 
@@ -15,15 +15,15 @@ class Product(db.Model):
     price =  db.Column(db.Integer, nullable = False)
     weight = db.Column(db.Integer, default = 1)
     genre_id = db.Column(db.Integer, db.ForeignKey('genre.id'))
-    created_at = db.Column(db.DataTime, default= datatime.now())
-    updated_at = db.Column(db.DataTime, default= datatime.now())
+    created_at = db.Column(db.DateTime, default= datetime.now())
+    updated_at = db.Column(db.DateTime, default= datetime.now())
 
 
 class Genre(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    created_at = db.Column(db.DateTime, default= datatime.now())
-    updated_at = db.Column(db.DateTime, default= datatime.now())
+    created_at = db.Column(db.DateTime, default= datetime.now())
+    updated_at = db.Column(db.DateTime, default= datetime.now())
 
 
 class GenreSchema(ma.SQLAlchemyAutoSchema):
@@ -38,8 +38,8 @@ class Stock(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     product_id=db.Column(db.Integer, db.ForeignKey('product.id'))
     name = db.Column(db.String(50), nullable=False)
-    created_at = db.Column(db.DateTime, default= datatime.now())
-    updated_at = db.Column(db.DateTime, default= datatime.now())
+    created_at = db.Column(db.DateTime, default= datetime.now())
+    updated_at = db.Column(db.DateTime, default= datetime.now())
 
 
 def get_all_genres():
