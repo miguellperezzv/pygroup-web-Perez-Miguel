@@ -1,9 +1,9 @@
 from flask import Flask , Response
 
-from app.db import db, ma 
-from conf.config import DevelopmentConfig
-from app.products import views 
-from app.products.views import products
+from db import db, ma 
+from config import DevelopmentConfig
+from products import views 
+from products.views import products
 
 ACTIVE_ENDPOINTS = [('/products',products)]
 

@@ -72,3 +72,6 @@ def get_product(id):
 #        return create_new_product(data["name"], data["price"], data["weight"], data["genre_id"]), 400
         
 
+@products.route('/create-genre-form', methods=["GET", 'POST'])
+def create_genre_form():
+    form_genre = CreateGenreForm()
