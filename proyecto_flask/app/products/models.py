@@ -43,9 +43,9 @@ class Stock(db.Model):
 
 
 def get_all_genres():
-    genres  = Genre.query.all()
+    genres_qs  = Genre.query.all()
     genre_schema = GenreSchema()
-    genres =[genre_schema.dump(genre) for genre in genres]
+    genres =[genre_schema.dump(genre) for genre in genres_qs]
     return genres
 
 def create_new_genre(name):
@@ -57,7 +57,22 @@ def create_new_genre(name):
     return None 
 
 def get_all_products():
-    products = Product.query.all()
+    products_qs = Product.query.all()
     product_schema = ProductSchema()
-    products=[product_schema.dump(product) for product in products]
+    products=[product_schema.dump(product) for product in products_qs]
     return products
+
+
+def  create_new_product(name,price, weight, genre_id):
+    category = db.session.query.filter(id==genre_id)
+
+    if category != []:
+        return {"info ":ok}
+    return {"No hay info ":Bad}
+
+
+def get_product_by_id(id):
+    product_qs = db.session.query.filter_by(id=id).first()
+    product_schema = ProductSchema()
+    p = product_schema.dump(product_qs)
+    return p

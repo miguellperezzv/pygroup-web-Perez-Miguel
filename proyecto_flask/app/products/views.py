@@ -1,6 +1,6 @@
 from http import HTTPStatus
 from flask import Blueprint,  Response, request 
-from app.products.models import get_all_genres, create_new_genre , get_all_products
+from app.products.models import get_all_genres, create_new_genre , get_all_products, create_new_product, get_product_by_id
 
 
 products = Blueprint('products', __name__, url_prefix = '/products')
@@ -53,7 +53,22 @@ def get_products():
     """
     """
     prods = get_all_products()
-    RESPONSE_BODY["message"]="Ok"
+    RESPONSE_BODY["message"]="Ok. Products list"
     RESPONSE_BODY["data"]= prods
 
     return RESPONSE_BODY, 200
+
+@products.route('/<int:id>')
+def get_product(id):
+    product = get_product_by_id(id)
+
+    RESPONSE_BODY["data"]=product
+    return RESPONSE_BODY, 200
+#
+#@products.route("/add-product", methods=['POST'])
+#def create_product():
+#    if request.method == "POST":
+#        data = request.json
+#        return create_new_product(data["name"], data["price"], data["weight"], data["genre_id"]), 400
+        
+
