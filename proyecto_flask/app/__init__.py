@@ -1,14 +1,17 @@
 from flask import Flask , Response
 
-from db import db, ma 
-from config import DevelopmentConfig
-from products import views 
-from products.views import products
+from app.db import db, ma 
+from conf.config import DevelopmentConfig
+#from app.products import views 
+from app.products.views import products
 from flask_wtf import CSRFProtect
+from flask_migrate import Migrate
+
 ACTIVE_ENDPOINTS = [('/products',products)]
 
 def create_app(config=DevelopmentConfig):
     app  = Flask(__name__)
+    migrate = Migrate(app, db)
     csrf = CSRFProtect(app)
     app.config.from_object(config)
     db.init_app(app)
@@ -20,7 +23,7 @@ def create_app(config=DevelopmentConfig):
     
     for url,  blueprint in ACTIVE_ENDPOINTS:
         app.register_blueprint(blueprint, url_prefix=url)
-
+    return app
 
 
 
