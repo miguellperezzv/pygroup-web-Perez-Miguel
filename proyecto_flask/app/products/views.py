@@ -1,7 +1,16 @@
+import sys
 from http import HTTPStatus
-from flask import Blueprint,  Response, request 
-from app.products.models import get_all_genres, create_new_genre , get_all_products, create_new_product, get_product_by_id
 
+from flask import Blueprint, Response, request, render_template, redirect, \
+    url_for
+
+from app.products.forms import CreateGenreForm
+from app.products.models import(
+    get_all_genres,
+    create_new_genre,
+    get_all_products,
+    get_product_by_id,
+)
 
 products = Blueprint('products', __name__, url_prefix = '/products')
 
