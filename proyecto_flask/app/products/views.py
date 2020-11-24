@@ -70,8 +70,19 @@ def get_product(id):
 #    if request.method == "POST":
 #        data = request.json
 #        return create_new_product(data["name"], data["price"], data["weight"], data["genre_id"]), 400
-        
+
+
+
+@products.route('/succcess')
+def success():
+    return render_template('category_success.html')
 
 @products.route('/create-genre-form', methods=["GET", 'POST'])
 def create_genre_form():
     form_genre = CreateGenreForm()
+
+    if request.method == 'POST' and form_genre.validate():
+        create_new_genre(name=form_genre.name.data)
+        return redirect(url_form('products.successh'))
+
+    return render_template('create_genre_form.html', form=form_genre)
