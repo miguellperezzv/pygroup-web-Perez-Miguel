@@ -95,3 +95,11 @@ def create_genre_form():
         return redirect(url_form('products.successh'))
 
     return render_template('create_genre_form.html', form=form_genre)
+
+@products.route('/add_genre_old', methods=['GET','POST'])
+def create_genre_old():
+    if request.method == "POST":
+        RESPONSE_BODY["message"] = "Se agregó el género {} exitosamente".format(request.form["name"])
+        status_code= HTTPStatus.CREATED
+        return RESPONSE_BODY, 200
+    return render_template("form_genre_old.html")
