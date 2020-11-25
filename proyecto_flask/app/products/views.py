@@ -84,7 +84,9 @@ def get_product(id):
 
 @products.route('/succcess')
 def success():
-    return render_template('category_success.html')
+    return render_template('genre_success.html')
+
+
 
 @products.route('/create-genre-form', methods=["GET", 'POST'])
 def create_genre_form():
@@ -92,7 +94,7 @@ def create_genre_form():
 
     if request.method == 'POST' and form_genre.validate():
         create_new_genre(name=form_genre.name.data)
-        return redirect(url_form('products.successh'))
+        return redirect(url_for('products.success'))
 
     return render_template('create_genre_form.html', form=form_genre)
 
@@ -103,3 +105,24 @@ def create_genre_old():
         status_code= HTTPStatus.CREATED
         return RESPONSE_BODY, 200
     return render_template("form_genre_old.html")
+
+
+
+@products.route("/register-product-stock/<int:id>", methods=["PUT", "POST"])
+def register_product_refund_in_stock():
+
+    # TODO Complete this view to update stock for product when a register for
+    # this products exists. If not create the new register in DB
+
+    status_code = HTTPStatus.CREATED
+    if request.method == "PUT":
+        RESPONSE_BODY["message"] = \
+            "Stock for this product were updated successfully!"
+        status_code = HTTPStatus.OK
+    elif request.method == "POST":
+        RESPONSE_BODY["message"] = \
+            "Stock for this product were created successfully!"
+        pass
+    else:
+        RESPONSE_BODY["message"] = "Method not Allowed"
+        status_code = HTTPStatus.METHOD_NOT_ALLOWED
