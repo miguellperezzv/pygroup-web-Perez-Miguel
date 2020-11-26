@@ -17,6 +17,7 @@ class Product(db.Model):
     genre_id = db.Column(db.Integer, db.ForeignKey('genre.id'))
     created_at = db.Column(db.DateTime, default= datetime.now())
     updated_at = db.Column(db.DateTime, default= datetime.now())
+    imagen = db.Column(db.String(500), default="https://discussions.apple.com/content/attachment/881765040")
 
 
 class Genre(db.Model):
@@ -33,6 +34,7 @@ class GenreSchema(ma.SQLAlchemyAutoSchema):
 class ProductSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model= Product
+        fields = ["id", "name", "price", "imagen"] 
 
 class Stock(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -63,16 +65,16 @@ def get_all_products():
     return products
 
 
-def  create_new_product(name,price, weight, genre_id):
-    category = db.session.query.filter(id==genre_id)
+def  create_new_product(name,price, weight, genre_id, image):
+    genre = db.session.query.filter(id==genre_id)
 
-    if category != []:
+    if genre != []:
         return {"info ":ok}
     return {"No hay info ":Bad}
 
 
 def get_product_by_id(id):
-    product_qs = db.session.query.filter_by(id=id).first()
+    product_qs = Product.query.filter_by(id==id).first()
     product_schema = ProductSchema()
     p = product_schema.dump(product_qs)
     return p

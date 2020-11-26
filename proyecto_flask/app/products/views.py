@@ -126,3 +126,16 @@ def register_product_refund_in_stock():
     else:
         RESPONSE_BODY["message"] = "Method not Allowed"
         status_code = HTTPStatus.METHOD_NOT_ALLOWED
+
+@products.route('/show-catalog', methods=['GET','POST'])
+def show_products_catalog():
+    #COnsultar la BD y extraer todos los productos disponibles
+    products = get_all_products()
+    #print(products)
+    my_info = {"products" : products, "pygroup": "Pygroup 25 Nov", "miguel": 2020}
+    return render_template('catalogo.html', my_info=my_info) ##cuando haga referencia en la plantilla será desde my_info
+
+    #Enviar la info en una variable de contexto
+    #renderizar la plantilla de html e insertar los datos de la v de contexto
+
+
