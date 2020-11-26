@@ -139,3 +139,6 @@ def show_products_catalog():
     #renderizar la plantilla de html e insertar los datos de la v de contexto
 
 
+@products.route('/temp')
+def temp():
+    return render_template("child.html")
