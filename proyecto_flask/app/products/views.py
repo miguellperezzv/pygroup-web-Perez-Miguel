@@ -141,4 +141,5 @@ def show_products_catalog():
 
 @products.route('/temp')
 def temp():
-    return render_template("child.html")
+    tempValue = "hola, buenos días"
+    return render_template("child.html", myVar = tempValue)

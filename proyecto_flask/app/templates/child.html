@@ -9,6 +9,10 @@
     {% block content %}
     <h1>Index</h1>
     <p class="important">
-        WELCOME!!!!
+
+        {{myVar | upper}}
+        {% filter upper %}
+        WELCOME!!!! to my page
+        {% endfilter %}
     </p>
     {% endblock %}
