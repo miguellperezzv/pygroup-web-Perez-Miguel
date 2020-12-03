@@ -4,10 +4,11 @@ from http import HTTPStatus
 from flask import Blueprint, Response, request, render_template, redirect, \
     url_for
 
-from app.products.forms import CreateGenreForm
+from app.products.forms import (CreateGenreForm, CreateProductForm)
 from app.products.models import(
     get_all_genres,
     create_new_genre,
+    create_new_product,
     get_all_products,
     get_product_by_id,
 )
@@ -106,8 +107,6 @@ def create_genre_old():
         return RESPONSE_BODY, 200
     return render_template("form_genre_old.html")
 
-
-
 @products.route("/register-product-stock/<int:id>", methods=["PUT", "POST"])
 def register_product_refund_in_stock():
 
@@ -138,6 +137,16 @@ def show_products_catalog():
     #Enviar la info en una variable de contexto
     #renderizar la plantilla de html e insertar los datos de la v de contexto
 
+@products.route('/nuevo-producto', methods=['GET', 'POST'])
+def create_product_form():
+    form_product = CreateProductForm()
+
+    if request.method == 'POST' and form_product.validate():
+        
+        create_new_product(name=form_genre.name.data,price=form_product.price.data, genre_id=form_product.genre.data, image=form_product.image.data) 
+        return redirect(url_for('products.success'))
+ 
+    return render_template('create_product_form.html', form=form_product)
 
 @products.route('/temp')
 def temp():

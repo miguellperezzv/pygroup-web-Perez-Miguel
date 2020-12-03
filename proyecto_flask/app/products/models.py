@@ -66,11 +66,19 @@ def get_all_products():
 
 
 def  create_new_product(name,price, weight, genre_id, image):
-    genre = db.session.query.filter(id==genre_id)
+    
+    #genre = db.session.query.filter(id==genre_id)
 
-    if genre != []:
-        return {"info ":ok}
-    return {"No hay info ":Bad}
+    #if genre != []:
+    #    return {"info ":ok}
+    #return {"No hay info ":Bad}
+
+    product = Product(name=name, price=price,genre_id=genre_id, image=image)
+    db.session.add(product)
+
+    if db.session.commit():
+        return genre
+    return None 
 
 
 def get_product_by_id(id):
