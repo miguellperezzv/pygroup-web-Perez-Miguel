@@ -8,3 +8,5 @@ class CreateGenreForm(FlaskForm):
 class CreateProductForm(FlaskForm):
     nameProduct = StringField('Product name', validators=[DataRequired()])
     price = StringField('Price', validators=[DataRequired()])
+    genre = StringField('Genre', validators=[DataRequired()])
+    image = StringField('Image', validators=[DataRequired()])

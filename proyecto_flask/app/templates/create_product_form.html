@@ -11,7 +11,9 @@
     <form method="POST" action="/products//nuevo-producto">
         {{ form.csrf_token }}
         {{ form.nameProduct.label }} {{ form.nameProduct(size=20) }} <br>
-        {{ form.price.label }} {{ form.price(size=20) }}
+        {{ form.price.label }} {{ form.price(size=20) }} <br>
+        {{ form.genre.label }} {{ form.genre(size=20) }} <br>
+        {{ form.image.label }} {{ form.image(size=20) }} <br>
         <input type="submit" value="Registrar Producto">
     </form>
 </body>

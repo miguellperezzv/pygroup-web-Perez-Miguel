@@ -137,6 +137,12 @@ def show_products_catalog():
     #Enviar la info en una variable de contexto
     #renderizar la plantilla de html e insertar los datos de la v de contexto
 
+
+#Crear un formulario regular y un formulario con Flask-WTF 
+# (Utilizando validadores) para la creación de un producto en la tienda.
+
+
+#formulario con FlaskWTF
 @products.route('/nuevo-producto', methods=['GET', 'POST'])
 def create_product_form():
     form_product = CreateProductForm()
@@ -147,6 +153,17 @@ def create_product_form():
         return redirect(url_for('products.success'))
  
     return render_template('create_product_form.html', form=form_product)
+
+
+#formulario regular
+@products.route('/nuevo-producto-old', methods=['GET', 'POST'])
+def create_product_old():
+    if request.method == "POST":
+        RESPONSE_BODY["message"] = "Se agregó el producto {} exitosamente".format(request.form["name"])
+        status_code= HTTPStatus.CREATED
+        return RESPONSE_BODY, 200
+    return render_template("create_product_old.html")
+
 
 @products.route('/temp')
 def temp():
