@@ -6,7 +6,7 @@
 **OAuth2**
 Es el protócolo industrial estandar para la autorización. OAuth 2.0 se enefoca en la simpicaidad para el desarrollador proveendo de flujos específicos  para aplicaciones web, de cliente, mobile phones, etc. Es un framework de autorización que le permite a las aplicaciones obtener acceso limitado a cuentas de usuario en un servicio HTTP, como Facebook, GitHub. Delega la autenticación del usuario al servicio que aloja la cuenta del mismo y autoriza a las aplicaciones de terceros el acceso a dicha cuenta de usuario.
 
-![nombre de la imagen2][https://assets.digitalocean.com/articles/translateddiagrams32918/Abstract-Protocol-Flow-Spanish@2x.png] 
+![nombre de la imagen2](https://assets.digitalocean.com/articles/translateddiagrams32918/Abstract-Protocol-Flow-Spanish@2x.png)
 
 **OpenID**
 
