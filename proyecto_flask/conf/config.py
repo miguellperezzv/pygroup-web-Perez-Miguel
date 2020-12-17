@@ -1,7 +1,7 @@
 class Config(object):
     DEBUG = True
     TESTING = False
-    SQLALCHEMY_DATABASE_URI = "sqlite:///shop.sqlite3"
+    SQLALCHEMY_DATABASE_URI = "sqlite:///virtualshop.sqlite3"
     SQLALCHEMY_TRACK_MODIFICATION =  False
 
 

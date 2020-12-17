@@ -3,7 +3,34 @@ from datetime import datetime
 
 
 
+class Artist(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.String(500), nullable=False)
+    created_at = db.Column(db.DateTime, default= datetime.now())
+    updated_at = db.Column(db.DateTime, default= datetime.now())
 
+class Genre(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    created_at = db.Column(db.DateTime, default= datetime.now())
+    updated_at = db.Column(db.DateTime, default= datetime.now())
+
+class Release(db.Model):
+    id = db.Column(db.Integer, primary_key= True)
+    artist_id = db.Column(db.Integer, db.ForeignKey('artist.id'))
+    name  = db.Column(db.String(200), nullable=False)
+    genre_id = db.Column(db.Integer, db.ForeignKey('genre.id'))
+    release_date = db.Column(db.DateTime, default= datetime.now())
+    imagen = db.Column(db.String(500), default="https://discussions.apple.com/content/attachment/881765040")
+    created_at = db.Column(db.DateTime, default= datetime.now())
+    updated_at = db.Column(db.DateTime, default= datetime.now())
+
+class Format(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    created_at = db.Column(db.DateTime, default= datetime.now())
+    updated_at = db.Column(db.DateTime, default= datetime.now())
 
 class Product(db.Model):
     """
@@ -11,17 +38,19 @@ class Product(db.Model):
     """
 
     id = db.Column(db.Integer, primary_key= True)
-    name = db.Column(db.String(50), nullable=False)
+    release_id = db.Column(db.Integer, db.ForeignKey("release.id") )
+    format_id = db.Column(db.Integer, db.ForeignKey("format.id"))
+    artist_id = db.Column(db.Integer, db.ForeignKey('artist.id'))
     price =  db.Column(db.Integer, nullable = False)
     weight = db.Column(db.Integer, default = 1)
-    genre_id = db.Column(db.Integer, db.ForeignKey('genre.id'))
+    description = db.Column(db.String(500),nullable=True )
     created_at = db.Column(db.DateTime, default= datetime.now())
     updated_at = db.Column(db.DateTime, default= datetime.now())
-    imagen = db.Column(db.String(500), default="https://discussions.apple.com/content/attachment/881765040")
+    #imagen = db.Column(db.String(500), default="https://discussions.apple.com/content/attachment/881765040")
 
-
-class Genre(db.Model):
+class Stock(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    product_id=db.Column(db.Integer, db.ForeignKey('product.id'))
     name = db.Column(db.String(50), nullable=False)
     created_at = db.Column(db.DateTime, default= datetime.now())
     updated_at = db.Column(db.DateTime, default= datetime.now())
@@ -34,14 +63,18 @@ class GenreSchema(ma.SQLAlchemyAutoSchema):
 class ProductSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model= Product
-        fields = ["id", "name", "price", "imagen"] 
+        fields = ["id", "release", "format", "artist", "price"] 
 
-class Stock(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    product_id=db.Column(db.Integer, db.ForeignKey('product.id'))
-    name = db.Column(db.String(50), nullable=False)
-    created_at = db.Column(db.DateTime, default= datetime.now())
-    updated_at = db.Column(db.DateTime, default= datetime.now())
+
+class ArtistSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Artist
+        fields = ["id", "nameArtist", "description"]
+
+class ReleaseSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Release
+        fields = ["name", "artist", "genre", "image"]
 
 
 def get_all_genres():
@@ -86,3 +119,19 @@ def get_product_by_id(id):
     product_schema = ProductSchema()
     p = product_schema.dump(product_qs)
     return p
+
+def create_new_artist(name, description):
+    artist = Artist(name=name, description=description)
+    db.session.add(artist)
+
+    if db.session.commit():
+        return artist
+    return None 
+
+def create_new_release(artist_id, name, genre_id, release_date, image):
+    artist = Artist(artist_id=artist_id, name=name, genre_id=genre_id, release_date=release_date, image=image)
+    db.session.add(artist)
+
+    if db.session.commit():
+        return artist
+    return None 

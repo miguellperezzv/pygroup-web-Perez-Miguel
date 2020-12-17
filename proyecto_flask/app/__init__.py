@@ -4,10 +4,12 @@ from app.db import db, ma
 from conf.config import DevelopmentConfig
 #from app.products import views 
 from app.products.views import products
+from app.products.views import releases
 from flask_wtf import CSRFProtect
 from flask_migrate import Migrate
 
-ACTIVE_ENDPOINTS = [('/products',products)]
+ACTIVE_ENDPOINTS = [('/products',products), ('/releases',releases) ]
+#ACTIVE_ENDPOINTS = [('/releases',releases)]
 
 def create_app(config=DevelopmentConfig):
     app  = Flask(__name__)

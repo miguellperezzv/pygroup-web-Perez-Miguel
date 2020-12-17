@@ -4,16 +4,19 @@ from http import HTTPStatus
 from flask import Blueprint, Response, request, render_template, redirect, \
     url_for
 
-from app.products.forms import (CreateGenreForm, CreateProductForm)
+from app.products.forms import (CreateGenreForm, CreateProductForm, CreateArtistForm, CreateReleaseForm)
 from app.products.models import(
     get_all_genres,
     create_new_genre,
     create_new_product,
+    create_new_artist,
+    create_new_release,
     get_all_products,
     get_product_by_id,
 )
 
 products = Blueprint('products', __name__, url_prefix = '/products')
+releases = Blueprint('releases', __name__, url_prefix = '/releases')
 
 RESPONSE_BODY = {
     "message": "",
@@ -169,3 +172,27 @@ def create_product_old():
 def temp():
     tempValue = "hola, buenos días"
     return render_template("child.html", myVar = tempValue)
+
+@products.route('/create-artist', methods=["GET", 'POST'])
+def create_artist_form():
+    form_artist = CreateArtistForm()
+    if request.method == 'POST' and form_artist.validate():
+        
+        create_new_artist(name = form_artist.name.data, description=form_artist.description.data) 
+        return redirect(url_for('products.success'))
+ 
+    return render_template('create_artist_form.html', form=form_artist)
+
+
+@releases.route('/nuevo-lanzamiento', methods=['GET', 'POST'])
+def create_release_form():
+    form_release = CreateReleaseForm()
+
+    if request.method == 'POST' and form_release.validate():
+        
+        create_new_release(name=form_genre.name.data,price=form_product.price.data, genre_id=form_product.genre.data, image=form_product.image.data) 
+        return redirect(url_for('products.success'))
+ 
+    return render_template('create_release_form.html', form=form_release)
+
+

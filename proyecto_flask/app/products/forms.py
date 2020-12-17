@@ -10,3 +10,14 @@ class CreateProductForm(FlaskForm):
     price = StringField('Price', validators=[DataRequired()])
     genre = StringField('Genre', validators=[DataRequired()])
     image = StringField('Image', validators=[DataRequired()])
+
+class CreateArtistForm(FlaskForm):
+    name = StringField('Artist name', validators=[DataRequired()])
+    description = StringField('Description', validators=[DataRequired()])
+
+class CreateReleaseForm(FlaskForm):
+    artist_id = StringField('Artist ID', validators=[DataRequired()])
+    name = StringField('Artist name', validators=[DataRequired()])
+    genre_id = StringField('Genre ID', validators=[DataRequired()])
+    release_date = StringField('Fecha Lanzamiento', validators=[DataRequired()])
+    image = StringField('Image', validators=[DataRequired()])
