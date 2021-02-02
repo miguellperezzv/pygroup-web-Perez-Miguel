@@ -76,7 +76,7 @@ class ArtistSchema(ma.SQLAlchemyAutoSchema):
 class ReleaseSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Release
-        fields = ["name", "artist", "genre", "image"]
+        fields = ["name", "artist_id", "genre", "imagen"]
 
 
 def get_all_genres():
@@ -105,6 +105,11 @@ def get_all_releases():
     releases=[release_schema.dump(release) for release in releases_qs]
     return releases
 
+def get_all_artists():
+    artists_qs = Artist.query.all()
+    artist_schema = ArtistSchema()
+    artists = [artist_schema.dump(artist) for artist in artists_qs]
+    return artists
 
 def  create_new_product(name,price, weight, genre_id, image):
     
@@ -137,9 +142,10 @@ def create_new_artist(name, description):
     return None 
 
 def create_new_release(artist_id, name, genre_id, release_date, image):
-    artist = Artist(artist_id=artist_id, name=name, genre_id=genre_id, release_date=release_date, image=image)
-    db.session.add(artist)
+    release = Release(artist_id=artist_id, name=name, genre_id=genre_id, release_date=release_date, imagen=image)
+    db.session.add(release)
 
     if db.session.commit():
-        return artist
+        return release
+        print("release añadido exitosamente!!!")
     return None 

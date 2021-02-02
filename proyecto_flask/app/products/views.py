@@ -14,6 +14,7 @@ from app.products.models import(
     get_all_products,
     get_product_by_id,
     get_all_releases,
+    get_all_artists,
 )
 
 products = Blueprint('products', __name__, url_prefix = '/products')
@@ -91,6 +92,9 @@ def get_product(id):
 def success():
     return render_template('genre_success.html')
 
+@releases.route('/succcess')
+def success():
+    return render_template('release_success.html')
 
 
 @products.route('/create-genre-form', methods=["GET", 'POST'])
@@ -189,19 +193,24 @@ def create_artist_form():
 def create_release_form():
     form_release = CreateReleaseForm()
 
-    if request.method == 'POST' and form_release.validate():
-        release_date = datetime.strptime(form_release_date.data, '%d, %m, %Y')
-        create_new_release(name=form_genre.name.data,price=form_product.price.data, genre_id=form_product.genre.data, release_date=release_date, image=form_product.image.data) 
-        return redirect(url_for('products.success'))
- 
+    #if request.method == 'POST' and form_release.validate():
+    if request.method == 'POST':
+        #release_date = datetime.strptime(form_release_date.data, '%d, %m, %Y')
+        release_date = form_release.release_date.data
+        create_new_release(artist_id=form_release.artist_id.data, name=form_release.name.data, genre_id=form_release.genre_id.data, release_date=release_date, image=form_release.image.data) 
+        print("Producto añadido exitosamente!!!")
+        return redirect(url_for('release.success'))
+
+    print("error en agregar release!!!")
     return render_template('create_release_form.html', form=form_release)
 
 @releases.route('/show-catalog', methods=['GET','POST'])
 def show_releases_catalog():
     #COnsultar la BD y extraer todos los productos disponibles
     releases = get_all_releases()
+    artists = get_all_artists() 
     #print(products)
-    my_info = {"releases" : releases, "pygroup": "Pygroup 25 Nov", "miguel": 2020}
+    my_info = {"releases" : releases, "artists" : artists,  "pygroup": "Pygroup 25 Nov", "miguel": 2020}
     return render_template('catalogo.html', my_info=my_info) ##cuando haga referencia en la plantilla será desde my_info
 
     #Enviar la info en una variable de contexto
