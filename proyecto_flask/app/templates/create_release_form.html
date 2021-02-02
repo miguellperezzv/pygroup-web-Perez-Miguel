@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Artist</title>
+</head>
+<body>
+    <form method="POST" action="/releases//new-release">
+        {{ form.csrf_token }}
+        {{ form.name.label }} {{ form.name(size=200) }}
+        {{ form.artist_id.label }} {{ form.artist_id(size=10) }}
+        {{ form.genre_id.label }} {{ form.genre_id(size=10) }}
+        {{ form.release_date.label }} {{ form.release_date(size=100) }}
+        {{ form.image.label }} {{ form.image(size=500) }}
+        <input type="submit" value="Registrar Nuevo Lanzamiento">
+    </form> 
+</body>
+</html>

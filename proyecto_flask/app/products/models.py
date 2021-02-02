@@ -32,6 +32,8 @@ class Format(db.Model):
     created_at = db.Column(db.DateTime, default= datetime.now())
     updated_at = db.Column(db.DateTime, default= datetime.now())
 
+
+'''
 class Product(db.Model):
     """
     Documentación 
@@ -47,10 +49,10 @@ class Product(db.Model):
     created_at = db.Column(db.DateTime, default= datetime.now())
     updated_at = db.Column(db.DateTime, default= datetime.now())
     #imagen = db.Column(db.String(500), default="https://discussions.apple.com/content/attachment/881765040")
-
+'''
 class Stock(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    product_id=db.Column(db.Integer, db.ForeignKey('product.id'))
+    release_id=db.Column(db.Integer, db.ForeignKey('release.id'))
     name = db.Column(db.String(50), nullable=False)
     created_at = db.Column(db.DateTime, default= datetime.now())
     updated_at = db.Column(db.DateTime, default= datetime.now())
@@ -59,12 +61,12 @@ class Stock(db.Model):
 class GenreSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Genre
-
+'''
 class ProductSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model= Product
         fields = ["id", "release", "format", "artist", "price"] 
-
+'''
 
 class ArtistSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
@@ -96,6 +98,12 @@ def get_all_products():
     product_schema = ProductSchema()
     products=[product_schema.dump(product) for product in products_qs]
     return products
+
+def get_all_releases():
+    releases_qs = Release.query.all()
+    release_schema = ReleaseSchema()
+    releases=[release_schema.dump(release) for release in releases_qs]
+    return releases
 
 
 def  create_new_product(name,price, weight, genre_id, image):

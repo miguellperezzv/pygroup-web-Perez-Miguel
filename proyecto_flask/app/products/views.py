@@ -13,6 +13,7 @@ from app.products.models import(
     create_new_release,
     get_all_products,
     get_product_by_id,
+    get_all_releases,
 )
 
 products = Blueprint('products', __name__, url_prefix = '/products')
@@ -184,15 +185,24 @@ def create_artist_form():
     return render_template('create_artist_form.html', form=form_artist)
 
 
-@releases.route('/nuevo-lanzamiento', methods=['GET', 'POST'])
+@releases.route('/new-release', methods=['GET', 'POST'])
 def create_release_form():
     form_release = CreateReleaseForm()
 
     if request.method == 'POST' and form_release.validate():
-        
-        create_new_release(name=form_genre.name.data,price=form_product.price.data, genre_id=form_product.genre.data, image=form_product.image.data) 
+        release_date = datetime.strptime(form_release_date.data, '%d, %m, %Y')
+        create_new_release(name=form_genre.name.data,price=form_product.price.data, genre_id=form_product.genre.data, release_date=release_date, image=form_product.image.data) 
         return redirect(url_for('products.success'))
  
     return render_template('create_release_form.html', form=form_release)
 
+@releases.route('/show-catalog', methods=['GET','POST'])
+def show_releases_catalog():
+    #COnsultar la BD y extraer todos los productos disponibles
+    releases = get_all_releases()
+    #print(products)
+    my_info = {"releases" : releases, "pygroup": "Pygroup 25 Nov", "miguel": 2020}
+    return render_template('catalogo.html', my_info=my_info) ##cuando haga referencia en la plantilla será desde my_info
 
+    #Enviar la info en una variable de contexto
+    #renderizar la plantilla de html e insertar los datos de la v de contexto
