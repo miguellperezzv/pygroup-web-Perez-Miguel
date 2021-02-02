@@ -1,9 +1,11 @@
 from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired
 from wtforms import StringField
-from wtforms import DateTimeField
+from wtforms import DateField, SelectField
 from datetime import date, datetime
-
+from wtforms.ext.sqlalchemy.fields import QuerySelectField
+from app.products.models import Artist, Genre
+from app.products import models
 
 class CreateGenreForm(FlaskForm):
     name = StringField('name', validators=[DataRequired()])
@@ -20,14 +22,9 @@ class CreateArtistForm(FlaskForm):
     description = StringField('Description', validators=[DataRequired()])
 
 class CreateReleaseForm(FlaskForm):
-    artist_id = StringField('Artist ID', validators=[DataRequired()])
+    artist_id=QuerySelectField(query_factory=lambda: Artist.query.all(),get_label="name")
     name = StringField('Release Name', validators=[DataRequired()])
-    genre_id = StringField('Genre ID', validators=[DataRequired()])
-    
-    '''
-    release_date = DateTimeField('Release Date', validators=[DataRequired(),DateRange(
-            min=datetime(1950, 1, 1),
-            max=date.today())]  )
-    '''
+    genre_id=QuerySelectField(query_factory=lambda: Genre.query.all(),get_label="name")
+    #release_date = DateField('Release Date', format='%Y%m/%d')
     release_date = DateTimeField('Release Date', validators=[DataRequired()])
     image = StringField('Image', validators=[DataRequired()])

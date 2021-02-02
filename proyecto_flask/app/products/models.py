@@ -61,6 +61,7 @@ class Stock(db.Model):
 class GenreSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Genre
+        fields = ["id", "name"]
 '''
 class ProductSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
@@ -71,7 +72,7 @@ class ProductSchema(ma.SQLAlchemyAutoSchema):
 class ArtistSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Artist
-        fields = ["id", "nameArtist", "description"]
+        fields = ["id", "name", "description"]
 
 class ReleaseSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
@@ -132,6 +133,12 @@ def get_product_by_id(id):
     product_schema = ProductSchema()
     p = product_schema.dump(product_qs)
     return p
+
+def get_artist_by_name(name):
+    artist_qs = Artist.query.filter_by(name=name).first()
+    artist_schema = ArtistSchema()
+    a = artist_schema.dump(artist_qs)
+    return a
 
 def create_new_artist(name, description):
     artist = Artist(name=name, description=description)

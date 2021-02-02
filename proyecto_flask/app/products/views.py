@@ -15,6 +15,7 @@ from app.products.models import(
     get_product_by_id,
     get_all_releases,
     get_all_artists,
+    get_artist_by_name,
 )
 
 products = Blueprint('products', __name__, url_prefix = '/products')
@@ -197,12 +198,27 @@ def create_release_form():
     if request.method == 'POST':
         #release_date = datetime.strptime(form_release_date.data, '%d, %m, %Y')
         release_date = form_release.release_date.data
-        create_new_release(artist_id=form_release.artist_id.data, name=form_release.name.data, genre_id=form_release.genre_id.data, release_date=release_date, image=form_release.image.data) 
+        #artist_id = (get_artist_by_name(form_release.artist_id.data))
+        artist_id = (form_release.artist_id.data).id
+        print("artist_id is: ",artist_id)
+        create_new_release(artist_id=form_release.artist_id.data.id, name=form_release.name.data, genre_id=form_release.genre_id.data, release_date=release_date, image=form_release.image.data) 
         print("Producto añadido exitosamente!!!")
-        return redirect(url_for('release.success'))
+        return redirect(url_for('releases.success'))
 
     print("error en agregar release!!!")
     return render_template('create_release_form.html', form=form_release)
+
+#formulario regular
+@releases.route('/new-release-old', methods=['GET', 'POST'])
+def create_release_old():
+    if request.method == "POST":
+
+
+        RESPONSE_BODY["message"] = "Se agregó el producto {} exitosamente".format(request.form["name"])
+        status_code= HTTPStatus.CREATED
+        return RESPONSE_BODY, 200
+    return render_template("create_release_old.html")
+
 
 @releases.route('/show-catalog', methods=['GET','POST'])
 def show_releases_catalog():
