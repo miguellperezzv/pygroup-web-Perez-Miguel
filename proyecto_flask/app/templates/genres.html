@@ -4,28 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Release</title>
+    <title>Genres</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
 
-    <div>
-        <form method="POST" action="/releases//new-release">
-            {{ form.csrf_token }}
-            <br>
-            {{ form.name.label }} {{ form.name(size=200) }}
-            <br>
-            {{ form.artist_id.label }} {{ form.artist_id }}
-            
-            {{ form.genre_id.label }} {{ form.genre_id}}
-            <br>
-            {{ form.release_date.label }} {{ form.release_date(size=100) }}
-            <br>
-            {{ form.image.label }} {{ form.image(size=500) }}
-            <input type="submit" value="Registrar Nuevo Lanzamiento">
-        </form>
+    <h1>Genres on Musical Box</h1>
+    <div class="row">
+
+
+        {%for genre in my_info.genres %}
+        <div class="col-lg-2">
+
+            <div class="card-body" href="#">
+                <center>
+                    
+                        <a href="./{{genre.name}}"> {{genre.name}}</a>
+                </center>
+
+            </div>
+            <div class="card-footer ">
+                
+
+            </div>
+        </div>
+        {%endfor%}
+
+
+
     </div>
 
 

@@ -16,10 +16,13 @@ from app.products.models import(
     get_all_releases,
     get_all_artists,
     get_artist_by_name,
+    get_genre_by_name,
+    get_releases_by_genre
 )
 
 products = Blueprint('products', __name__, url_prefix = '/products')
 releases = Blueprint('releases', __name__, url_prefix = '/releases')
+genres =   Blueprint('genres', __name__,   url_prefix=  '/genres')
 
 RESPONSE_BODY = {
     "message": "",
@@ -45,13 +48,18 @@ def index(name):
 
 @products.route('/genres')
 def get_genres():
-
+    
+    '''
     genres = get_all_genres()
 
     RESPONSE_BODY["message"]="Ok"
     RESPONSE_BODY["data"]= genres
 
     return RESPONSE_BODY, 200
+    '''
+    genres = get_all_genres()
+    my_info={"genres":genres}
+    return render_template("genres.html", my_info=my_info)
 
 @products.route('"/add-genre', methods=['POST'])
 def create_genre():
@@ -200,8 +208,9 @@ def create_release_form():
         release_date = form_release.release_date.data
         #artist_id = (get_artist_by_name(form_release.artist_id.data))
         artist_id = (form_release.artist_id.data).id
+        genre_id = (form_release.genre_id.data).id
         print("artist_id is: ",artist_id)
-        create_new_release(artist_id=form_release.artist_id.data.id, name=form_release.name.data, genre_id=form_release.genre_id.data, release_date=release_date, image=form_release.image.data) 
+        create_new_release(artist_id=form_release.artist_id.data.id, name=form_release.name.data, genre_id=(form_release.genre_id.data).id, release_date=release_date, image=form_release.image.data) 
         print("Producto añadido exitosamente!!!")
         return redirect(url_for('releases.success'))
 
@@ -231,3 +240,22 @@ def show_releases_catalog():
 
     #Enviar la info en una variable de contexto
     #renderizar la plantilla de html e insertar los datos de la v de contexto
+
+#Genres routes
+@genres.route('/show-genres', methods=['GET', 'POST'])
+def show_genres():
+    genres = get_all_genres()
+    my_info={"genres":genres}
+    return render_template("genres.html", my_info=my_info)
+
+@genres.route('/<string:name>', methods=['GET'])
+def particular_genre(name):
+    genre = get_genre_by_name(name)
+    print("genre:::::::::: y su id", genre['id'])
+    
+    artists = get_all_artists()
+    release = get_releases_by_genre(genre['id'])
+    my_info = {"genre" : genre, "artists" : artists, "releases":releases}
+    
+    
+    return render_template("single_genre.html", my_info=my_info)

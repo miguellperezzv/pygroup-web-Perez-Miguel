@@ -140,6 +140,27 @@ def get_artist_by_name(name):
     a = artist_schema.dump(artist_qs)
     return a
 
+#inviable
+'''
+def get_artists_by_genre(id):
+    artist_qs = Artist.query.filter_by(genre_id=id)
+    artist_schema = ArtistSchema()
+    a = [artist_schema.dump(artist) for artist in artist_qs ]
+    return a
+'''
+
+def get_releases_by_genre(id):
+    releases_qs = Release.query.filter_by(genre_id=id)
+    release_schema = ReleaseSchema()
+    releases=[release_schema.dump(release) for release in releases_qs]
+    return releases
+
+def get_genre_by_name(name):
+    genre_qs = Genre.query.filter_by(name=name).first()
+    genre_schema = GenreSchema()
+    g = genre_schema.dump(genre_qs)
+    return g
+
 def create_new_artist(name, description):
     artist = Artist(name=name, description=description)
     db.session.add(artist)

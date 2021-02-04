@@ -25,6 +25,6 @@ class CreateReleaseForm(FlaskForm):
     artist_id=QuerySelectField(query_factory=lambda: Artist.query.all(),get_label="name")
     name = StringField('Release Name', validators=[DataRequired()])
     genre_id=QuerySelectField(query_factory=lambda: Genre.query.all(),get_label="name")
-    #release_date = DateField('Release Date', format='%Y%m/%d')
-    release_date = DateTimeField('Release Date', validators=[DataRequired()])
+    release_date = DateField('Release Date', format='%Y%m/%d')
+    #release_date = DateTimeField('Release Date', validators=[DataRequired()])
     image = StringField('Image', validators=[DataRequired()])

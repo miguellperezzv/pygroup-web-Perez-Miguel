@@ -5,10 +5,11 @@ from conf.config import DevelopmentConfig
 #from app.products import views 
 from app.products.views import products
 from app.products.views import releases
+from app.products.views import genres
 from flask_wtf import CSRFProtect
 from flask_migrate import Migrate
 
-ACTIVE_ENDPOINTS = [('/products',products), ('/releases',releases) ]
+ACTIVE_ENDPOINTS = [('/products',products), ('/releases',releases), ('/genres',genres) ]
 #ACTIVE_ENDPOINTS = [('/releases',releases)]
 
 def create_app(config=DevelopmentConfig):
