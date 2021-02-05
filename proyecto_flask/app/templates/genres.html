@@ -7,9 +7,14 @@
     <title>Genres</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" type="text/css">  
+    </head>
 
 <body>
+
+    <div class="navbar">
+        {% include 'navbar.html' %}
+    </div>
 
     <h1>Genres on Musical Box</h1>
     <div class="row">
@@ -21,7 +26,7 @@
             <div class="card-body" href="#">
                 <center>
                     
-                        <a href="./{{genre.name}}"> {{genre.name}}</a>
+                        <a href="./{{genre.name}}" class="genre-info"> {{genre.name}}</a>
                 </center>
 
             </div>

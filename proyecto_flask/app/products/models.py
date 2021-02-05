@@ -77,7 +77,7 @@ class ArtistSchema(ma.SQLAlchemyAutoSchema):
 class ReleaseSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Release
-        fields = ["name", "artist_id", "genre", "imagen"]
+        fields = ["name", "artist_id", "genre_id", "imagen", "release_date"]
 
 
 def get_all_genres():
@@ -155,8 +155,20 @@ def get_releases_by_genre(id):
     releases=[release_schema.dump(release) for release in releases_qs]
     return releases
 
+def get_single_release_by_artist(id,name):
+    release_qs = Release.query.filter_by(artist_id=id, name=name).first()
+    release_schema = ReleaseSchema()
+    r = release_schema.dump(release_qs)
+    return r
+
 def get_genre_by_name(name):
     genre_qs = Genre.query.filter_by(name=name).first()
+    genre_schema = GenreSchema()
+    g = genre_schema.dump(genre_qs)
+    return g
+
+def get_genre_by_id(id):
+    genre_qs = Genre.query.filter_by(id=id).first()
     genre_schema = GenreSchema()
     g = genre_schema.dump(genre_qs)
     return g

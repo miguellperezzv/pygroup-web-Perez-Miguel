@@ -17,7 +17,9 @@ from app.products.models import(
     get_all_artists,
     get_artist_by_name,
     get_genre_by_name,
-    get_releases_by_genre
+    get_releases_by_genre,
+    get_single_release_by_artist,
+    get_genre_by_id,
 )
 
 products = Blueprint('products', __name__, url_prefix = '/products')
@@ -243,7 +245,11 @@ def show_releases_catalog():
 
 @releases.route('/<string:artist>_<string:name>', methods=['GET', 'POST'])
 def particular_release(artist,name):
-    return render_template("single_release.html")
+    artist = get_artist_by_name(artist)
+    release = get_single_release_by_artist(artist['id'],name)
+    genre = get_genre_by_id(release['genre_id'])
+    my_info = {"artist":artist, "release": release,"genre": genre}
+    return render_template("single_release.html", my_info = my_info)
 
 #Genres routes
 @genres.route('/show-genres', methods=['GET', 'POST'])
@@ -255,7 +261,7 @@ def show_genres():
 @genres.route('/<string:name>', methods=['GET'])
 def particular_genre(name):
     genre = get_genre_by_name(name)
-    print("genre:::::::::: y su id", genre['id'])
+    #print("genre:::::::::: y su id", genre['id'])
     
     artists = get_all_artists()
     releases = get_releases_by_genre(genre['id'])

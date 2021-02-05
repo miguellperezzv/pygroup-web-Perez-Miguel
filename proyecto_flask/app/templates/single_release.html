@@ -4,29 +4,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Release!!!</title>
+    <title>{{my_info.release.name}}</title>
+    <link rel="icon" type="image" href="{{my_info.release.imagen}}" width="40px" heigth="40px" />
 
 
-    <!--
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/151fccfd32.js" crossorigin="anonymous"></script>
 
-    -->
+
+
+
+
+
+
+
+
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
+
     
+
+    <div class="container mt-2">
+        {% include 'navbar.html' %}
+    </div>
+
+    <div class="container mt-2" style="background-color: #000000;">
+
+        <div class="row">
+            <div class="col-md-6" id="img">
+                <center><img src="{{my_info.release.imagen}}" class="image" width="400px" height="400px" alt="" />
+                </center>
+
+
+
+            </div>
+            <div class="col-md-6">
+                <div>
+                    <center>
+                        <h2 id="tituloAlbum"> <a id="link" href="#"> {{my_info.artist.name}}</a> -
+                            {{my_info.release.name}}</h2>
+                        <h3 ID="subtituloAlbum">Genre: {{my_info.genre.name}} </h3>
+                        <h3 id="subtituloAlbum">Release date: {{my_info.release.release_date}} </h3>
+
+                        <h3 ID="subtituloAlbum">disponibles: </h3>
+                    </center>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+
     
-
-
-   
-
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
