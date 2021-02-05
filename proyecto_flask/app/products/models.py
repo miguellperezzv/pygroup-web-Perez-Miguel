@@ -155,6 +155,12 @@ def get_releases_by_genre(id):
     releases=[release_schema.dump(release) for release in releases_qs]
     return releases
 
+def get_releases_by_artist(id):
+    releases_qs = Release.query.filter_by(artist_id=id)
+    release_schema = ReleaseSchema()
+    releases=[release_schema.dump(release) for release in releases_qs]
+    return releases
+
 def get_single_release_by_artist(id,name):
     release_qs = Release.query.filter_by(artist_id=id, name=name).first()
     release_schema = ReleaseSchema()

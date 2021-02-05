@@ -20,11 +20,13 @@ from app.products.models import(
     get_releases_by_genre,
     get_single_release_by_artist,
     get_genre_by_id,
+    get_releases_by_artist,
 )
 
 products = Blueprint('products', __name__, url_prefix = '/products')
 releases = Blueprint('releases', __name__, url_prefix = '/releases')
 genres =   Blueprint('genres', __name__,   url_prefix=  '/genres')
+artists = Blueprint('artists', __name__,   url_prefix=  '/artists')
 
 RESPONSE_BODY = {
     "message": "",
@@ -269,3 +271,10 @@ def particular_genre(name):
     
     
     return render_template("single_genre.html", my_info=my_info)
+
+@artists.route('/<string:name>', methods=['GET', 'POST'])
+def particular_artist(name):
+    artist=get_artist_by_name(name)
+    releases = get_releases_by_artist(artist['id'])
+    my_info = {'artist': artist, 'releases':releases}
+    return render_template("single_artist.html", my_info = my_info)

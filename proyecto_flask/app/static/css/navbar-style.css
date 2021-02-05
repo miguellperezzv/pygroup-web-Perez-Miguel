@@ -4,6 +4,7 @@
   --intenseskyblue: #92D4FF;
   --backblue: #3AB7F5;
   --aqua: #3ab7cd;
+  background-color: var(--skyblue);
 }
 
 @font-face {

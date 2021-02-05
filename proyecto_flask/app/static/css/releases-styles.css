@@ -1,0 +1,19 @@
+
+.row{
+    background-color:springgreen;
+}
+.col-lg-2{
+    background-color:springgreen;
+}
+
+.card-body{
+    background-color: var(--skyblue);
+}
+
+.h1{
+    color: var(--yellow);
+}
+
+.row{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
