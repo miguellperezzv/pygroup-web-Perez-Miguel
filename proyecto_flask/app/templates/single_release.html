@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Musical Box /{{my_info.genre.name}}</title>
+    <title>Release!!!</title>
 
 
     <!--
@@ -22,41 +22,10 @@
 
 <body>
     
-    <center>
-        <h7>PAGINA DEL GENERO: {{my_info.genre.name}}</h7>
+    
 
 
-    </center>
-
-    <div class="row">
-
-
-        {%for release in my_info.releases %}
-        <div class="col-lg-2">
-
-            <div class="card-body">
-                <center>
-                    <a
-                        href="ControladorLanzamiento?accion=LanzamientoPage&k_lanzamiento=${l.getK_lanzamiento()}&k_artista=${l.getK_artista()}">
-                        <img src='{{release.imagen}}' width="150  " height="150" alt="" /> </a>
-                </center>
-
-            </div>
-            <div class="card-footer ">
-                <center>
-                    <div class="row">Name: {{release.name}}</div>
-                    <div class="row">Artist: {{(my_info.artists[release.artist_id-1]).name}}</div>
-                    
-                    
-                </center>
-
-            </div>
-        </div>
-        {%endfor%}
-
-
-
-    </div>
+   
 
 
     <!-- Optional JavaScript -->

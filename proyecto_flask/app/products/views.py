@@ -241,6 +241,10 @@ def show_releases_catalog():
     #Enviar la info en una variable de contexto
     #renderizar la plantilla de html e insertar los datos de la v de contexto
 
+@releases.route('/<string:artist>_<string:name>', methods=['GET', 'POST'])
+def particular_release(artist,name):
+    return render_template("single_release.html")
+
 #Genres routes
 @genres.route('/show-genres', methods=['GET', 'POST'])
 def show_genres():
@@ -254,7 +258,7 @@ def particular_genre(name):
     print("genre:::::::::: y su id", genre['id'])
     
     artists = get_all_artists()
-    release = get_releases_by_genre(genre['id'])
+    releases = get_releases_by_genre(genre['id'])
     my_info = {"genre" : genre, "artists" : artists, "releases":releases}
     
     
