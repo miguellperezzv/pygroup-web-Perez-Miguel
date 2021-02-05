@@ -29,11 +29,12 @@ class Release(db.Model):
 class Format(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
+    #description = db.Column(db.String(200), nullable=False)
     created_at = db.Column(db.DateTime, default= datetime.now())
     updated_at = db.Column(db.DateTime, default= datetime.now())
 
 
-'''
+
 class Product(db.Model):
     """
     Documentación 
@@ -48,11 +49,12 @@ class Product(db.Model):
     description = db.Column(db.String(500),nullable=True )
     created_at = db.Column(db.DateTime, default= datetime.now())
     updated_at = db.Column(db.DateTime, default= datetime.now())
-    #imagen = db.Column(db.String(500), default="https://discussions.apple.com/content/attachment/881765040")
-'''
+    image = db.Column(db.String(500), default="https://discussions.apple.com/content/attachment/881765040")
+
 class Stock(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     release_id=db.Column(db.Integer, db.ForeignKey('release.id'))
+    format_id=db.Column(db.Integer, db.ForeignKey('format.id'))
     name = db.Column(db.String(50), nullable=False)
     created_at = db.Column(db.DateTime, default= datetime.now())
     updated_at = db.Column(db.DateTime, default= datetime.now())
@@ -62,12 +64,12 @@ class GenreSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Genre
         fields = ["id", "name"]
-'''
+
 class ProductSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model= Product
-        fields = ["id", "release", "format", "artist", "price"] 
-'''
+        fields = ["id", "release", "format", "artist", "price", "weight", "description", "image"] 
+
 
 class ArtistSchema(ma.SQLAlchemyAutoSchema):
     class Meta:

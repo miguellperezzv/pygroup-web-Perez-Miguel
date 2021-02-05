@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{my_info.release.name}}</title>
     <link rel="icon" type="image" href="{{my_info.release.imagen}}" width="40px" heigth="40px" />
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/releases-style.css') }}" type="text/css">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
-<body>
+<body class="background">
 
     
 
@@ -49,9 +49,42 @@
         </div>
     </div>
 
-
+    <button type="button" onClick="return mostrar()" class="btn btn-info">Agregar Producto</button>
 
     
+    <!--ENsayo Modal-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregando producto de <b>{{my_info.release.name}}</b> </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!--Carga de formulario-->
+                <div id="formulario">
+                    <!--
+                        carga con include
+                    -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script>
+        function mostrar() {
+            
+                //alert("NUEVA CATEGORIA");
+                $('#myModal').modal('show');
+            
+        }
+    </script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

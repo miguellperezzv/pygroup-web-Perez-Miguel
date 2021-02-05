@@ -166,14 +166,14 @@ def show_products_catalog():
 #formulario con FlaskWTF
 @products.route('/nuevo-producto', methods=['GET', 'POST'])
 def create_product_form():
-    form_product = CreateProductForm()
+    form = CreateProductForm()
 
     if request.method == 'POST' and form_product.validate():
         
         create_new_product(name=form_genre.name.data,price=form_product.price.data, genre_id=form_product.genre.data, image=form_product.image.data) 
         return redirect(url_for('products.success'))
  
-    return render_template('create_product_form.html', form=form_product)
+    return render_template('create_product_form.html', form=form)
 
 
 #formulario regular
@@ -247,9 +247,13 @@ def show_releases_catalog():
 
 @releases.route('/<string:artist>_<string:name>', methods=['GET', 'POST'])
 def particular_release(artist,name):
+
     artist = get_artist_by_name(artist)
     release = get_single_release_by_artist(artist['id'],name)
     genre = get_genre_by_id(release['genre_id'])
+
+    #formulario para agregar producto
+    #form = create_product_form()
     my_info = {"artist":artist, "release": release,"genre": genre}
     return render_template("single_release.html", my_info = my_info)
 

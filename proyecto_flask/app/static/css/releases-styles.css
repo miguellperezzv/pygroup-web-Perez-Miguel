@@ -1,3 +1,7 @@
+.background{
+    background-color: var(--skyblue);
+}
+
 
 .row{
     background-color:springgreen;
