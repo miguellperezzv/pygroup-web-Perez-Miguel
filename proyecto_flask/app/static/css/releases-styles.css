@@ -2,14 +2,6 @@
     background-color: var(--skyblue);
 }
 
-
-.row{
-    background-color:springgreen;
-}
-.col-lg-2{
-    background-color:springgreen;
-}
-
 .card-body{
     background-color: var(--skyblue);
 }
@@ -21,3 +13,8 @@
 .row{
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
+
+#container{
+    background-color: var(--intenseskyblue);
+}
+

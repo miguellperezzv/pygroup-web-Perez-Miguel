@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{my_info.release.name}}</title>
     <link rel="icon" type="image" href="{{my_info.release.imagen}}" width="40px" heigth="40px" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/releases-style.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/releases-styles.css') }}" type="text/css">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -14,13 +14,13 @@
 
 <body class="background">
 
-    
+
 
     <div class="container mt-2">
         {% include 'navbar.html' %}
     </div>
 
-    <div class="container mt-2" style="background-color: #000000;">
+    <div class="container mt-2" id="container">
 
         <div class="row">
             <div class="col-md-6" id="img">
@@ -30,10 +30,11 @@
 
 
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" id="container">
                 <div>
                     <center>
-                        <h2 id="tituloAlbum"> <a id="link" href="../../artists/{{my_info.artist.name}}"> {{my_info.artist.name}}</a> -
+                        <h2 id="tituloAlbum"> <a id="link" href="../../artists/{{my_info.artist.name}}">
+                                {{my_info.artist.name}}</a> -
                             {{my_info.release.name}}</h2>
                         <h3 ID="subtituloAlbum">Genre: {{my_info.genre.name}} </h3>
                         <h3 id="subtituloAlbum">Release date: {{my_info.release.release_date}} </h3>
@@ -49,45 +50,58 @@
         </div>
     </div>
 
-    <button type="button" onClick="return mostrar()" class="btn btn-info">Agregar Producto</button>
+    <br>
+    <br>
+    <div class="container mt-2">
+        <button type="button" onClick="return mostrar()" class="btn btn-info">Agregar Producto</button>
+    </div>
 
-    
-    <table class="table table-striped table-dark">
-        <thead>
-            <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Price</th>
-                <th scope="col">Weight</th>
-                <th scope="col">Description</th>
-                
-                
-            </tr>
-        </thead>
-        <tbody>
 
-            {%for product in my_info.products %}
+    <br>
+    <br>
+
+    <div class="container mt-2">
+
+
+
+        <table class="table table-striped table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Name + Format</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Weight</th>
+                    <th scope="col">Description</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+
+                {%for product in my_info.products %}
                 <tr>
                     <td scope="row">{{my_info.release.name}} ({{(my_info.formats[product.format_id-1]).name}})</td>
                     <td>{{product.price}}</td>
                     <td>{{product.weight}}</td>
                     <td>{{product.description}}</td>
-                    
+
                     <td> <a class="fas fa-compact-disc"></a></td>
                 </tr>
 
-            {%endfor%}
+                {%endfor%}
 
 
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
-
+    </div>
     <!--ENsayo Modal-->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Agregando producto de <b>{{my_info.release.name}}</b> </h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Agregando producto de <b>{{my_info.release.name}}</b>
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -109,10 +123,10 @@
 
     <script>
         function mostrar() {
-            
-                //alert("NUEVA CATEGORIA");
-                $('#myModal').modal('show');
-            
+
+            //alert("NUEVA CATEGORIA");
+            $('#myModal').modal('show');
+
         }
     </script>
 
