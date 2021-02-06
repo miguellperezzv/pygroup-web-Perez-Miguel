@@ -25,8 +25,12 @@
  }
 
  .navbar-brand{
-   color:var(--yellow);
-   font-size: 30px;
+
+   color: var(--yellow);
+   font-size: 25px;
+   font-family: 'Smooth-Circulars';
  }
+
+ 
 
   
