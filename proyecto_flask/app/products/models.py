@@ -49,7 +49,7 @@ class Product(db.Model):
     description = db.Column(db.String(500),nullable=True )
     created_at = db.Column(db.DateTime, default= datetime.now())
     updated_at = db.Column(db.DateTime, default= datetime.now())
-    image = db.Column(db.String(500), default="https://discussions.apple.com/content/attachment/881765040")
+    #image = db.Column(db.String(500), default="https://discussions.apple.com/content/attachment/881765040")
 
 class Stock(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -68,7 +68,7 @@ class GenreSchema(ma.SQLAlchemyAutoSchema):
 class ProductSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model= Product
-        fields = ["id", "release", "format", "artist", "price", "weight", "description", "image"] 
+        fields = ["id", "release_id", "format_id", "artist_id", "price", "weight", "description"] 
 
 
 class ArtistSchema(ma.SQLAlchemyAutoSchema):
@@ -79,8 +79,12 @@ class ArtistSchema(ma.SQLAlchemyAutoSchema):
 class ReleaseSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Release
-        fields = ["name", "artist_id", "genre_id", "imagen", "release_date"]
+        fields = ["id", "name", "artist_id", "genre_id", "imagen", "release_date"]
 
+class FormatSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Format
+        fields = ["name", "id"]
 
 def get_all_genres():
     genres_qs  = Genre.query.all()
@@ -113,6 +117,12 @@ def get_all_artists():
     artist_schema = ArtistSchema()
     artists = [artist_schema.dump(artist) for artist in artists_qs]
     return artists
+
+def get_all_formats():
+    format_qs = Format.query.all()
+    format_schema = FormatSchema()
+    formats = [format_schema.dump(f) for f in format_qs]
+    return formats
 
 def  create_new_product(name,price, weight, genre_id, image):
     
@@ -169,6 +179,12 @@ def get_single_release_by_artist(id,name):
     r = release_schema.dump(release_qs)
     return r
 
+def get_products_by_release(id):
+    products_qs = Product.query.filter_by(release_id=id)
+    product_schema = ProductSchema()
+    products=[product_schema.dump(product) for product in products_qs]
+    return products
+
 def get_genre_by_name(name):
     genre_qs = Genre.query.filter_by(name=name).first()
     genre_schema = GenreSchema()
@@ -197,3 +213,6 @@ def create_new_release(artist_id, name, genre_id, release_date, image):
         return release
         print("release añadido exitosamente!!!")
     return None 
+
+
+

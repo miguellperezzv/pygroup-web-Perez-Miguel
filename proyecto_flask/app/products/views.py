@@ -21,6 +21,8 @@ from app.products.models import(
     get_single_release_by_artist,
     get_genre_by_id,
     get_releases_by_artist,
+    get_products_by_release,
+    get_all_formats,
 )
 
 products = Blueprint('products', __name__, url_prefix = '/products')
@@ -251,10 +253,12 @@ def particular_release(artist,name):
     artist = get_artist_by_name(artist)
     release = get_single_release_by_artist(artist['id'],name)
     genre = get_genre_by_id(release['genre_id'])
-
+    products = get_products_by_release(release['id'])
+    formats = get_all_formats()
+    print("Formatos: ", formats)
     #formulario para agregar producto
     #form = create_product_form()
-    my_info = {"artist":artist, "release": release,"genre": genre}
+    my_info = {"artist":artist, "release": release,"genre": genre, "products":products, 'formats':formats}
     return render_template("single_release.html", my_info = my_info)
 
 #Genres routes
